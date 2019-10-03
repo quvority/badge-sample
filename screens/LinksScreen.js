@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, TextInput } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, TextInput, Alert } from 'react-native';
 import { Container, Header, Content, Button, Form, Textarea } from 'native-base';
 import { ExpoLinksView } from '@expo/samples';
 
@@ -7,12 +7,19 @@ export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: "",
-      selectedBadge: 0
+      // text: "",
+      // textAreaValue: "",
+      gifter: {
+        // id: null,
+
+        value: ""
+      },
+      // stylesSendButton: {},
     }
+    this._handleButtonPress = this._handleButtonPress.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  // <View style={{ padding: 30 }}>
   render() {
     return (
       <Container>
@@ -24,7 +31,7 @@ export default class LinksScreen extends React.Component {
             marginRight: 10,
             marginBottom: 5,
             borderRadius: 3,
-            justifyContent: "center"
+            justifyContent: "center",
           }}>
             <Text>Pride</Text>
           </Button>
@@ -33,7 +40,6 @@ export default class LinksScreen extends React.Component {
             marginRight: 10,
             marginBottom: 5,
             justifyContent: "center"
-            // margin: 0,
           }}>
             <Text>Full-Commitment</Text>
           </Button>
@@ -42,7 +48,6 @@ export default class LinksScreen extends React.Component {
             marginRight: 10,
             marginBottom: 5,
             justifyContent: "center"
-            // flexDirection: 'row'
           }}>
             <Text>Challenge</Text>
           </Button>
@@ -64,9 +69,9 @@ export default class LinksScreen extends React.Component {
           </Button>
         </Content>
         <Form>
-          <Textarea rowSpan={4} style={{ margin: 15, fontSize: 15 }} bordered placeholder="コメント（任意）" />
+          <Textarea rowSpan={4} style={{ margin: 15, fontSize: 15 }} bordered placeholder="コメント（任意）" value={this.state.gifter.value} onChange={this.handleChange} />
         </Form>
-        <Button style={{
+        <Button onPress={this._handleButtonPress} style={{
           justifyContent: "center"
         }}>
           <Text style={{
@@ -75,25 +80,42 @@ export default class LinksScreen extends React.Component {
         </Button>
       </Container>
     );
-    LinksScreen.navigationOptions = {
-      title: 'Links'
-    }
   }
-  // <TextInput
-  //   style={{ height: 100, margin: 15 }}
-  //   placeholder="コメント（任意）"
-  //   onChangeText={inputtext => this.setState({ text: inputtext })}
-  //   value={this.state.text}
-  // />
-  // </View>
-
-
-  // const styles = StyleSheet.create({
-  //   container: {
-  //     flex: 1,
-  //     paddingTop: 15,
-  //     backgroundColor: '#fff',
-  //   },
-  // });
-
+  // LinksScreen.navigationOptions = {
+  //   title: 'Links'
+  // }
+  _handleButtonPress() {
+    alert('An essay was submitted: ' + this.state.gifter.value);
+    // Alert.alert(this.state.textAreaValue)
+    // this.setState({
+    //   // id: null,
+    //   // value: 1,
+    //   comment: 
+    // })
+  }
+  handleChange(event) {
+    this.setState({
+      gifter: {
+        // id: null,
+        value: event.nativeEvent.text
+      }
+    });
+  }
+  // onChangeText(e) {
+  //   this.state =
+  //     {
+  //       text: "",
+  //       textAreaValue: "e.target.value",
+  //       gifter: {
+  //         id: null,
+  //         value: 0,
+  //       }
+  //     }
+  // }
 }
+
+// this.setState(state => ({
+//   id: null,
+//   value: state.value + 1,
+//   comment: null
+// }))
