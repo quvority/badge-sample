@@ -29,7 +29,7 @@ export default function App(props) {
   }
 }
 
-//Fetch Get
+//Fetch 社員情報Get
 function getBadgeGetter() {
   return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
@@ -41,7 +41,7 @@ function getBadgeGetter() {
     });
 }
 
-//Getch Post
+//Fetch Badge Post
 function postBadge(){
   fetch('http://localhost:8000/api/memos/', {
     method: 'POST',
@@ -50,12 +50,17 @@ function postBadge(){
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      //今回は固定
       badgegifterno: '733',
+      //今回は固定
       badgegiftername: 'Kuwabara Akina',
+      //バッジが送られる人の社員No
       badgegetterno: this.state.badgegetterno,
+      //バッジが送られる人の社員名
       badgegettername: this.state.badgegettername,
-      badgegiftname: this.state.badgegiftname,
+      //バッジの種類
       badgetype: this.state.badgetype,
+      //コメント
       comment: this.state.comment,
     }),
   });
