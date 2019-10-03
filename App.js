@@ -4,11 +4,6 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import axios from 'axios';
-
-ReactDOM.render(<App />, document.querySelector('.container'));
-
 
 import AppNavigator from './navigation/AppNavigator';
 
@@ -16,7 +11,6 @@ export default function App(props) {
   //社員情報取得のAPI呼び出しをする
   console.log(getBadgeGifter)
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
