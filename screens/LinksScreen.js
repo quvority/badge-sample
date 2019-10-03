@@ -7,12 +7,10 @@ export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // text: "",
-      // textAreaValue: "",
       gifter: {
         // id: null,
 
-        value: ""
+        comment: ""
       },
       // stylesSendButton: {},
     }
@@ -69,7 +67,7 @@ export default class LinksScreen extends React.Component {
           </Button>
         </Content>
         <Form>
-          <Textarea rowSpan={4} style={{ margin: 15, fontSize: 15 }} bordered placeholder="コメント（任意）" value={this.state.gifter.value} onChange={this.handleChange} />
+          <Textarea rowSpan={4} style={{ margin: 15, fontSize: 15 }} bordered placeholder="コメント（任意）" comment={this.state.gifter.comment} onChange={this.handleChange} />
         </Form>
         <Button onPress={this._handleButtonPress} style={{
           justifyContent: "center"
@@ -85,11 +83,10 @@ export default class LinksScreen extends React.Component {
   //   title: 'Links'
   // }
   _handleButtonPress() {
-    alert('An essay was submitted: ' + this.state.gifter.value);
-    // Alert.alert(this.state.textAreaValue)
+    alert('An essay was submitted: ' + this.state.gifter.comment);
     // this.setState({
     //   // id: null,
-    //   // value: 1,
+    //   // comment: 1,
     //   comment: 
     // })
   }
@@ -97,7 +94,7 @@ export default class LinksScreen extends React.Component {
     this.setState({
       gifter: {
         // id: null,
-        value: event.nativeEvent.text
+        comment: event.nativeEvent.text
       }
     });
   }
@@ -105,17 +102,10 @@ export default class LinksScreen extends React.Component {
   //   this.state =
   //     {
   //       text: "",
-  //       textAreaValue: "e.target.value",
   //       gifter: {
   //         id: null,
-  //         value: 0,
+  //         comment: 0,
   //       }
   //     }
   // }
 }
-
-// this.setState(state => ({
-//   id: null,
-//   value: state.value + 1,
-//   comment: null
-// }))
