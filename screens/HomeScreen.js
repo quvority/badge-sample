@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   Platform,
@@ -11,32 +11,85 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
+import { Container, Header, Content, List, ListItem, Left, Right, Icon, Button, Input, Label, Body, Form, Item } from 'native-base';
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Text>aaa</Text>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
-      </ScrollView>
-    </View>
-  );
+export default class ListItemSelectedExample extends Component {
+  render() {
+    return (
+      <Container>
+        <Form>
+          <Item rounded>
+            <Input placeholder='氏名'/>
+            <Button primary><Text>検索</Text></Button>
+          </Item>
+        </Form>
+        <Content>
+          <List>
+            <ListItem selected>
+              <Left>
+                <Body>
+                  <View style={styles.nameLavel}>
+                    <Text>久保田博子</Text>
+                  </View>
+                  <Text>Pride</Text>
+                  <Text>Full-Commitment</Text>
+                  <Text>Challenge</Text>
+                  <Text>Collaboration</Text>
+                  <Text>Respect</Text>
+                </Body>
+              </Left>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+            <ListItem>
+             <Left>
+                <Text>Nathaniel Clyne</Text>
+              </Left>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+            <ListItem>
+              <Left>
+                <Text>Dejan Lovren</Text>
+              </Left>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+          </List>
+        </Content>
+      </Container>
+    );
+  }
 }
 
-HomeScreen.navigationOptions = {
-  header: null,
-};
+// export default function HomeScreen() {
+//   return (
+//     <View style={styles.container}>
+//       <ScrollView
+//         style={styles.container}
+//         contentContainerStyle={styles.contentContainer}>
+//         <View style={styles.welcomeContainer}>
+//           <Text>aaa</Text>
+//           <Image
+//             source={
+//               __DEV__
+//                 ? require('../assets/images/robot-dev.png')
+//                 : require('../assets/images/robot-prod.png')
+//             }
+//             style={styles.welcomeImage}
+//           />
+//         </View>
+//       </ScrollView>
+//     </View>
+//   );
+// }
+
+// HomeScreen.navigationOptions = {
+//   header: null,
+// };
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
@@ -74,6 +127,10 @@ function handleHelpPress() {
 }
 
 const styles = StyleSheet.create({
+  nameLavel: {
+    backgroundColor: '#fff',
+    fontSize: 14,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
