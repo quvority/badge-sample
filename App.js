@@ -9,7 +9,7 @@ import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
   //社員情報取得のAPI呼び出しをする
-  console.log(getBadgeGifter)
+  console.log(getBadgeGetter)
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -30,7 +30,7 @@ export default function App(props) {
 }
 
 //Fetch Get
-function getBadgeGifter() {
+function getBadgeGetter() {
   return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
     .then((responseJson) => {
@@ -50,14 +50,17 @@ function postBadge(){
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      badgegifterno: this.state.badgegifterno,
+      badgegifterno: '733',
+      badgegiftername: 'Kuwabara Akina',
+      badgegetterno: this.state.badgegetterno,
+      badgegettername: this.state.badgegettername,
       badgegiftname: this.state.badgegiftname,
       badgetype: this.state.badgetype,
       comment: this.state.comment,
     }),
   });
 }
-  
+
 // API呼び出し部分
 const axios = require('axios');
 // Make a request for a user with a given ID
