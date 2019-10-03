@@ -28,6 +28,22 @@ export default function App(props) {
   }
 }
 
+// API呼び出し部分
+const axios = require('axios');
+// Make a request for a user with a given ID
+axios.get('https://maps.googleapis.com/maps/api/geocode/json')
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+
 async function loadResourcesAsync() {
   await Promise.all([
     Asset.loadAsync([

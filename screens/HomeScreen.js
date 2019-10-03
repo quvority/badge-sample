@@ -65,6 +65,9 @@ export default function HomeScreen() {
           </MonoText>
         </View>
       </View>
+      <View>
+        <Text>aaaa</Text>
+      </View>
     </View>
   );
 }
