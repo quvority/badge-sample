@@ -8,8 +8,9 @@ import { Ionicons } from '@expo/vector-icons';
 import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
+  //社員情報取得のAPI呼び出しをする
+  console.log(getBadgeGifter)
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
@@ -26,6 +27,18 @@ export default function App(props) {
       </View>
     );
   }
+}
+
+//Fetch
+function getBadgeGifter() {
+  return fetch('https://facebook.github.io/react-native/movies.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 // API呼び出し部分
