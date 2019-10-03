@@ -29,7 +29,7 @@ export default function App(props) {
   }
 }
 
-//Fetch
+//Fetch Get
 function getBadgeGifter() {
   return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
@@ -41,6 +41,23 @@ function getBadgeGifter() {
     });
 }
 
+//Getch Post
+function postBadge(){
+  fetch('http://localhost:8000/api/memos/', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      badgegifterno: this.state.badgegifterno,
+      badgegiftname: this.state.badgegiftname,
+      badgetype: this.state.badgetype,
+      comment: this.state.comment,
+    }),
+  });
+}
+  
 // API呼び出し部分
 const axios = require('axios');
 // Make a request for a user with a given ID
