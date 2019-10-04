@@ -18,16 +18,21 @@ export default class ListItemSelectedExample extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // gifter:
-      //   {
-      //     gifterName: "桑原",
-      //     pride: 5,
-      //     fullCommitment: 2,
-      //     challenge: 1,
-      //     collaboration: 0,
-      //     respect: 1  
-      //   }
-
+      personList:[],
+      person:{
+        firstNameKana: "",
+        lastName: "",
+        firstName: "",
+        department: "",
+        employeeNo: "",
+        pride: null,
+        fullCommitment: null,
+        challenge: null,
+        collaboration: null,
+        respect: null,
+        totalBadge: "",
+        lastNameKana:""
+      },
       gifterList: [
         {
           gifterName: "桑原",
@@ -77,8 +82,13 @@ export default class ListItemSelectedExample extends Component {
           collaboration: 3,
           respect: 1  
         }
-      ]
+      ],
+      keyword:{
+        name:'なまえ'
+      }
     }
+    this.onSearch = this.onSearch.bind(this);
+    this.onChangeKeyword = this.onChangeKeyword(this);
   }
   
 
@@ -87,26 +97,28 @@ export default class ListItemSelectedExample extends Component {
       <Container>
         <Form>
           <Item rounded>
-            <Input placeholder='氏名'/>
-            <Button primary title="search" on-press={this.onSearch}><Text>検索</Text></Button>
+            <Input placeholder='氏名' type="text" onChange={this.onChangeKeyword}/>
+            {/* <Input placeholder='氏名' type="text" onChange={this.onChangeKeyword}/> */}
+            <Button primary title="search" onPress={this.onSearch}><Text>検索</Text></Button>
           </Item>
         </Form>
         <Content>
           <List>
-             {this.state.gifterList.map(gifter => (
+             {this.state.personList.map(person => (
                 <ListItem selected>
                 <Left>
                   <Body>
-                    <Text>{gifter.gifterName}</Text>
-                    <Text>Pride {gifter.pride}</Text>
-                    <Text>Full-Commitment {gifter.fullCommitment}</Text>
-                    <Text>Challenge {gifter.challenge}</Text>
-                    <Text>Collaboration {gifter.collaboration}</Text>
-                    <Text>Respect {gifter.respect}</Text>
+                    <Text>{person.firstName} {person.lastName}</Text>
+                    <Text>Pride {person.pride}</Text>
+                    <Text>Full-Commitment {person.fullCommitment}</Text>
+                    <Text>Challenge {person.challenge}</Text>
+                    <Text>Collaboration {person.collaboration}</Text>
+                    <Text>Respect {person.respect}</Text>
                   </Body>
                 </Left>
                 <Right>
-                  <Icon name="arrow-forward" />
+                  <Icon name="arrow-forward"/>
+                  {/* <Icon name="arrow-forward" onPress={this.onPressArrow(event)}/> */}
                 </Right>
                 </ListItem>
              ))}
@@ -114,175 +126,65 @@ export default class ListItemSelectedExample extends Component {
         </Content>
       </Container>
     );
+
+    // 初期表示時の全件検索
+    // this.onSearch();
   }
 
   onSearch() {
     // API呼び出し
-
-    // 呼び出し結果をセット
+    alert("API呼び出し"+ this.state.keyword.name);
+    this.getBadgeGetter()
+  }
+  onChangeKeyword() {
+    alert("キーワード入力");
     // this.setState({
-    //   gifter: {
-    //     gifterName: null,
-    //     pride: null,
-    //     fullCommitment: null,
-    //     challenge: null,
-    //     collaboration: null,
-    //     respect: null
+    //   keyword: {
+    //     name: 
     //   }
-    // })
+    // });
   }
-}
 
-// export default function HomeScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <ScrollView
-//         style={styles.container}
-//         contentContainerStyle={styles.contentContainer}>
-//         <View style={styles.welcomeContainer}>
-//           <Text>aaa</Text>
-//           <Image
-//             source={
-//               __DEV__
-//                 ? require('../assets/images/robot-dev.png')
-//                 : require('../assets/images/robot-prod.png')
-//             }
-//             style={styles.welcomeImage}
-//           />
-//         </View>
-//       </ScrollView>
-//     </View>
-//   );
-// }
-
-// HomeScreen.navigationOptions = {
-//   header: null,
-// };
-
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
+  //Fetch 社員情報Get
+  getBadgeGetter() {
+    return fetch('http://13.115.80.59/ULSBadge/gifterlist/')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // responseJsonをループで回してsetStateでつめる
+        // responseJson.map{json => 
+        //   this.setState({
+        //     firstNameKana: json.firstName,
+        //     lastName: "",
+        //     firstName: "",
+        //     department: "",
+        //     employeeNo: "",
+        //     pride: null,
+        //     fullCommitment: null,
+        //     challenge: null,
+        //     collaboration: null,
+        //     respect: null,
+        //     totalBadge: "",
+        //     lastNameKana:""
+        //   });  
+        // }
+        this.setState({personList: responseJson})
+        alert('成功');
+        // return responseJson;
+      })
+      .catch((error) => {
+        alert('失敗');
+        alert(error);
+      });
   }
-}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
+  // onPressArrow(){
+  //   // native-navigationのメソッドよぶ
+  //   this.state.employeeNo
+  // }
 }
 
 const styles = StyleSheet.create({
   nameLavel: {
     backgroundColor: '#fff',
     fontSize: 14,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
   },
 });
