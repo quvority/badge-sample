@@ -31,7 +31,7 @@ export default function App(props) {
 
 //Fetch 社員情報Get
 function getBadgeGetter() {
-  return fetch('https://facebook.github.io/react-native/movies.json')
+  return fetch('http://localhost:8080/ULSBadge/gifterlist/')
     .then((response) => response.json())
     .then((responseJson) => {
       return responseJson;
@@ -43,23 +43,19 @@ function getBadgeGetter() {
 
 //Fetch Badge Post
 function postBadge(){
-  fetch('http://localhost:8000/api/memos/', {
+  fetch('http://localhost:8080/ULSBadge/addbadge', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      //今回は固定
-      badgegifterno: '733',
-      //今回は固定
-      badgegiftername: 'Kuwabara Akina',
+      //バッジを送る人の社員No.今回は固定
+      giter: '733',
       //バッジが送られる人の社員No
-      badgegetterno: this.state.badgegetterno,
-      //バッジが送られる人の社員名
-      badgegettername: this.state.badgegettername,
+      awardee: this.state.awardee,
       //バッジの種類
-      badgetype: this.state.badgetype,
+      badge: this.state.badge,
       //コメント
       comment: this.state.comment,
     }),
