@@ -12,6 +12,8 @@ import {
 
 import { MonoText } from '../components/StyledText';
 import { Container, Header, Content, List, ListItem, Left, Right, Icon, Button, Input, Label, Body, Form, Item } from 'native-base';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 
 export default class ListItemSelectedExample extends Component {
@@ -105,7 +107,7 @@ export default class ListItemSelectedExample extends Component {
         <Content>
           <List>
              {this.state.personList.map(person => (
-                <ListItem selected>
+                <ListItem selected　onPress={() => this.props.navigation.navigate('Links')}>
                 <Left>
                   <Body>
                     <Text>{person.firstName} {person.lastName}</Text>
@@ -117,8 +119,11 @@ export default class ListItemSelectedExample extends Component {
                   </Body>
                 </Left>
                 <Right>
-                  <Icon name="arrow-forward"/>
                   {/* <Icon name="arrow-forward" onPress={this.onPressArrow(event)}/> */}
+                  {/* <Button onPress={() => alert("画面遷移")}> */}
+                  <Button onPress={() => this.props.navigation.navigate('Links')}>
+                    <Icon name="arrow-forward" />
+                  </Button>
                 </Right>
                 </ListItem>
              ))}
@@ -127,9 +132,12 @@ export default class ListItemSelectedExample extends Component {
       </Container>
     );
 
-    // 初期表示時の全件検索
-    // this.onSearch();
   }
+
+  componentDidMount(){
+    // 初期表示時の全件検索
+    this.getBadgeGetter();
+ }
 
   onSearch() {
     // API呼び出し
@@ -137,7 +145,7 @@ export default class ListItemSelectedExample extends Component {
     this.getBadgeGetter()
   }
   onChangeKeyword() {
-    alert("キーワード入力");
+    // alert("キーワード入力");
     // this.setState({
     //   keyword: {
     //     name: 
