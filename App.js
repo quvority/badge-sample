@@ -9,7 +9,7 @@ import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
   //社員情報取得のAPI呼び出しをする
-  console.log(getBadgeGifter)
+  console.log(getBadgeGetter)
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -29,8 +29,8 @@ export default function App(props) {
   }
 }
 
-//Fetch
-function getBadgeGifter() {
+//Fetch 社員情報Get
+function getBadgeGetter() {
   return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
     .then((responseJson) => {
@@ -39,6 +39,31 @@ function getBadgeGifter() {
     .catch((error) => {
       console.error(error);
     });
+}
+
+//Fetch Badge Post
+function postBadge(){
+  fetch('http://localhost:8000/api/memos/', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      //今回は固定
+      badgegifterno: '733',
+      //今回は固定
+      badgegiftername: 'Kuwabara Akina',
+      //バッジが送られる人の社員No
+      badgegetterno: this.state.badgegetterno,
+      //バッジが送られる人の社員名
+      badgegettername: this.state.badgegettername,
+      //バッジの種類
+      badgetype: this.state.badgetype,
+      //コメント
+      comment: this.state.comment,
+    }),
+  });
 }
 
 // API呼び出し部分
