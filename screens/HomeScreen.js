@@ -13,55 +13,123 @@ import {
 import { MonoText } from '../components/StyledText';
 import { Container, Header, Content, List, ListItem, Left, Right, Icon, Button, Input, Label, Body, Form, Item } from 'native-base';
 
+
 export default class ListItemSelectedExample extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      // gifter:
+      //   {
+      //     gifterName: "桑原",
+      //     pride: 5,
+      //     fullCommitment: 2,
+      //     challenge: 1,
+      //     collaboration: 0,
+      //     respect: 1  
+      //   }
+
+      gifterList: [
+        {
+          gifterName: "桑原",
+          pride: 5,
+          fullCommitment: 2,
+          challenge: 1,
+          collaboration: 0,
+          respect: 1  
+        },
+        {
+          gifterName: "穐田",
+          pride: 9,
+          fullCommitment: 5,
+          challenge: 1,
+          collaboration: 3,
+          respect: 1  
+        },
+        {
+          gifterName: "滝口",
+          pride: 9,
+          fullCommitment: 5,
+          challenge: 1,
+          collaboration: 3,
+          respect: 1  
+        },
+        {
+          gifterName: "毛屋",
+          pride: 9,
+          fullCommitment: 5,
+          challenge: 1,
+          collaboration: 3,
+          respect: 1  
+        },
+        {
+          gifterName: "安部",
+          pride: 9,
+          fullCommitment: 5,
+          challenge: 1,
+          collaboration: 3,
+          respect: 1  
+        },
+        {
+          gifterName: "久保田",
+          pride: 9,
+          fullCommitment: 5,
+          challenge: 1,
+          collaboration: 3,
+          respect: 1  
+        }
+      ]
+    }
+  }
+  
+
   render() {
     return (
       <Container>
         <Form>
           <Item rounded>
             <Input placeholder='氏名'/>
-            <Button primary><Text>検索</Text></Button>
+            <Button primary title="search" on-press={this.onSearch}><Text>検索</Text></Button>
           </Item>
         </Form>
         <Content>
           <List>
-            <ListItem selected>
-              <Left>
-                <Body>
-                  <View style={styles.nameLavel}>
-                    <Text>久保田博子</Text>
-                  </View>
-                  <Text>Pride</Text>
-                  <Text>Full-Commitment</Text>
-                  <Text>Challenge</Text>
-                  <Text>Collaboration</Text>
-                  <Text>Respect</Text>
-                </Body>
-              </Left>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
-            <ListItem>
-             <Left>
-                <Text>Nathaniel Clyne</Text>
-              </Left>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
-            <ListItem>
-              <Left>
-                <Text>Dejan Lovren</Text>
-              </Left>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
+             {this.state.gifterList.map(gifter => (
+                <ListItem selected>
+                <Left>
+                  <Body>
+                    <Text>{gifter.gifterName}</Text>
+                    <Text>Pride {gifter.pride}</Text>
+                    <Text>Full-Commitment {gifter.fullCommitment}</Text>
+                    <Text>Challenge {gifter.challenge}</Text>
+                    <Text>Collaboration {gifter.collaboration}</Text>
+                    <Text>Respect {gifter.respect}</Text>
+                  </Body>
+                </Left>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right>
+                </ListItem>
+             ))}
           </List>
         </Content>
       </Container>
     );
+  }
+
+  onSearch() {
+    // API呼び出し
+
+    // 呼び出し結果をセット
+    // this.setState({
+    //   gifter: {
+    //     gifterName: null,
+    //     pride: null,
+    //     fullCommitment: null,
+    //     challenge: null,
+    //     collaboration: null,
+    //     respect: null
+    //   }
+    // })
   }
 }
 
