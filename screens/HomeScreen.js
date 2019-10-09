@@ -141,7 +141,7 @@ export default class ListItemSelectedExample extends Component {
 
   onSearch() {
     // API呼び出し
-    alert("API呼び出し"+ this.state.keyword.name);
+    // alert("API呼び出し"+ this.state.keyword.name);
     this.getBadgeGetter()
   }
   onChangeKeyword() {
@@ -181,7 +181,7 @@ export default class ListItemSelectedExample extends Component {
       })
       .catch((error) => {
         alert('失敗');
-        alert(error);
+        // alert(error);
       });
   }
   // onPressArrow(){

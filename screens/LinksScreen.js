@@ -149,7 +149,8 @@ export default class LinksScreen extends React.Component {
   }
   handleSendButtonPress() {
     this.postBadge();
-    alert(this.state.badge.comment + this.state.badge.type);
+    alert("コメント：" + this.state.badge.comment + "\nバッジの種類：" + this.state.badge.type);
+    // alert(this.state.badge.comment + this.state.badge.type);
     // this.setState({
     //   // id: null,
     //   // comment: 1,
@@ -169,12 +170,12 @@ export default class LinksScreen extends React.Component {
         gifter: { employeeNo: "733" },
         awardee: { employeeNo: "621" },
         badge: {
-          type: "respect",
-          comment: "いつもありがとう"
+          type: this.state.badge.type,
+          comment: this.state.badge.comment
         }
       }),
     }).catch((error) => {
-      alert(error);
+      // alert(error);
     });
   }
 
